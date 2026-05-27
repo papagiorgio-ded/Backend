@@ -1,23 +1,17 @@
 import { Pool } from 'pg';
 
 
-export const pool = new Pool({
-  user: 'postgres',
-  password: '1234',
-  host: 'localhost',
-  port: 5432,
-  database: 'pixeldatabase',
-});
-/*
+
+
 const pool = new Pool({
-  user: 'dungeonsbbdd_user',
-  password: '6OpbIzzxopuW1Z48WfeI9X5Sz7fah7n3',
-  host: 'dpg-d5fsf5c9c44c738rhsrg-a.frankfurt-postgres.render.com',
+  user: 'pixel_trade_pg_user',
+  password: 'i6MUaLjQY9KUAgv9kx1hzZziJanhyoCi',
+  host: 'dpg-d8bcj0dckfvc73ct7prg-a.oregon-postgres.render.com',
   port: 5432,
-  database: 'dungeonsbbdd',
+  database: 'pixel_trade_pg',
   ssl: { rejectUnauthorized: false }
 });
-*/
+
 export function query(text: string, params?: any[]): any {
   return pool.query(text, params);
 }
