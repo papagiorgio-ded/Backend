@@ -12,6 +12,8 @@ app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
 
+const PORT = process.env.PORT || 3000;
+
 app.get('/getmaterials', async (req, res) => {
 
   try {
@@ -445,6 +447,8 @@ app.post('/upload-pdf', upload.single('file'), async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Servidor corriendo en http://localhost:3000');
+
+
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
 });
