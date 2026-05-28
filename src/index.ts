@@ -7,7 +7,7 @@ import nodemailer from 'nodemailer';
 import fs from 'fs';
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: 'https://quoprint.web.app' }));
 app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
