@@ -402,18 +402,19 @@ app.post('/users', async (req, res) => {
 
 
 
-
 const transporter = nodemailer.createTransport({
+  host: '74.125.140.108',
   port: 465,
-  secure: true, // IMPORTANTE (SSL en vez de TLS)
+  secure: true,
+
   auth: {
     user: 'noreplypixeltrade@gmail.com',
     pass: process.env.EMAIL_PASS
   },
-  family: 4, // fuerza IPv4
-  connectionTimeout: 20000,
-  greetingTimeout: 20000,
-  socketTimeout: 20000
+
+  tls: {
+    servername: 'smtp.gmail.com'
+  }
 });
 
 /* 📤 RECIBIR PDF */
