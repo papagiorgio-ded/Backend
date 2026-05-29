@@ -5,12 +5,19 @@ import * as db from './db-connection';
 import multer from 'multer';
 //import nodemailer from 'nodemailer';
 import fs from 'fs';
+import dns from 'dns';
+
+
+// Forzar IPv4 primero (fix Render + Gmail SMTP)
+if (dns.setDefaultResultOrder) {
+  dns.setDefaultResultOrder('ipv4first');
+}
 
 const nodemailer = require('nodemailer');
 
 const app = express();
 app.use(cors({ origin: 'https://quoprint.web.app' }));
-app.use(express.json());
+app.use(express.json() as any);
 
 const upload = multer({ dest: 'uploads/' });
 
