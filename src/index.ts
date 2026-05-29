@@ -404,22 +404,16 @@ app.post('/users', async (req, res) => {
 
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
+  port: 465,
+  secure: true, // IMPORTANTE (SSL en vez de TLS)
   auth: {
     user: 'noreplypixeltrade@gmail.com',
     pass: process.env.EMAIL_PASS
-  }
-});
-
-
- transporter.verify((error:any, success:any) => {
-  if (error) {
-    console.log('❌ ERROR EMAIL:', error);
-  } else {
-    console.log('✅ Servidor listo para enviar emails');
-  }
+  },
+  family: 4, // fuerza IPv4
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
+  socketTimeout: 20000
 });
 
 /* 📤 RECIBIR PDF */
