@@ -3,8 +3,10 @@ import cors from 'cors';
 import * as env from './environment/environment';
 import * as db from './db-connection';
 import multer from 'multer';
-import nodemailer from 'nodemailer';
+//import nodemailer from 'nodemailer';
 import fs from 'fs';
+
+const nodemailer = require('nodemailer');
 
 const app = express();
 app.use(cors({ origin: 'https://quoprint.web.app' }));
@@ -398,15 +400,21 @@ app.post('/users', async (req, res) => {
 
 
 
-/* 📧 EMAIL CONFIG */
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'noreplypixeltrade@gmail.com',
-      pass: 'btxaqkoimhhvialf'
-    }
-  });
-  transporter.verify((error, success) => {
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
+  auth: {
+    user: 'noreplypixeltrade@gmail.com',
+    pass: 'btxaqkoimhhvialf'
+  },
+  tls: {
+    rejectUnauthorized: false
+  },
+  family: 4
+});
+
+ transporter.verify((error:any, success:any) => {
   if (error) {
     console.log('❌ ERROR EMAIL:', error);
   } else {
