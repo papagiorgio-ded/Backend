@@ -406,13 +406,20 @@ const transporter = nodemailer.createTransport({
   secure: false,
   auth: {
     user: 'noreplypixeltrade@gmail.com',
-    pass: 'btxaqkoimhhvialf'
+    pass: process.env.EMAIL_PASS
   },
   tls: {
     rejectUnauthorized: false
   },
   family: 4
+
+  
 });
+transporter.verify((err:any) => {
+  if (err) console.log("SMTP FAIL:", err);
+  else console.log("SMTP OK");
+});
+
 
  transporter.verify((error:any, success:any) => {
   if (error) {
