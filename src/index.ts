@@ -5,13 +5,8 @@ import * as db from './db-connection';
 import multer from 'multer';
 //import nodemailer from 'nodemailer';
 import fs from 'fs';
-import dns from 'dns';
-
-
-// Forzar IPv4 primero (fix Render + Gmail SMTP)
-if (dns.setDefaultResultOrder) {
-  dns.setDefaultResultOrder('ipv4first');
-}
+import dns from 'node:dns';
+dns.setDefaultResultOrder('ipv4first');
 
 const nodemailer = require('nodemailer');
 
@@ -407,6 +402,7 @@ app.post('/users', async (req, res) => {
 
 
 
+
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587,
@@ -414,17 +410,7 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: 'noreplypixeltrade@gmail.com',
     pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  },
-  family: 4
-
-  
-});
-transporter.verify((err:any) => {
-  if (err) console.log("SMTP FAIL:", err);
-  else console.log("SMTP OK");
+  }
 });
 
 
@@ -446,6 +432,9 @@ app.post('/upload-pdf', upload.single('file'), async (req, res) => {
   if (!filePath) {
     return res.status(400).json({ error: 'No file' });
   }
+  if (!req.file) {
+  return res.status(400).json({ error: 'No file uploaded' });
+}
 
   try {
     await transporter.sendMail({
