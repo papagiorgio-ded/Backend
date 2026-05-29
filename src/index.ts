@@ -456,10 +456,15 @@ app.post('/upload-pdf', upload.single('file'), async (req, res) => {
 
     res.json({ ok: true });
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Email error' });
-  }
+  } catch (error: any) {
+  console.log("🔥🔥🔥 EMAIL ERROR REAL:", error);
+  console.log("STACK:", error?.stack);
+
+  return res.status(500).json({
+    message: error?.message,
+    fullError: error
+  });
+}
 });
 
 
